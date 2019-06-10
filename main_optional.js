@@ -44,8 +44,6 @@ app.get('/search', (req,res) => {
                     res.send(err);
                     return;
                 }
-                console.log(result.length)
-
                 res.status(200);
                 res.format({
                     'text/html' : () => {
@@ -94,8 +92,6 @@ app.get('/game/:gid',(req,res) => {
                     res.send(err);
                     return;
                 }
-                console.log(gameDetails[0])
-
                 conn.query(SQL_Count_Comments,
                     [gameId],
                     (err, totCount) => {
@@ -105,8 +101,7 @@ app.get('/game/:gid',(req,res) => {
                             res.send(err);
                             return;
                         }
-                        console.log(totCount[0].totalComm)
-                    
+
                     const totalCount = totCount[0].totalComm
                         
                     conn.query(SQL_Game_comments,
@@ -119,7 +114,6 @@ app.get('/game/:gid',(req,res) => {
                                 res.send(err);
                                 return;
                             }
-                            console.log(gameComm.length)
 
                             res.status(200);
                             res.format({
@@ -139,7 +133,7 @@ app.get('/game/:gid',(req,res) => {
                                 },
                                 'application/json' : () => {
                                     let gameJs = [];
-                                    let game = JSON.stringify(gameDetails[0])
+                                    let game = gameDetails;
                                     let gameComments = gameComm.map( r => `/comments/${r.c_id}`)
                                     gameJs.push(game, gameComments)
                                     res.status(200);
@@ -157,12 +151,7 @@ app.get('/game/:gid',(req,res) => {
     })
 })
 
-
-
-
 app.get(/.*/, express.static(__dirname + '/public'))
-
-
 
 //start the server
 app.listen(PORT, () => {

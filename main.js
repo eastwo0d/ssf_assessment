@@ -44,8 +44,6 @@ app.get('/search', (req,res) => {
                     res.send(err);
                     return;
                 }
-                console.log(result.length)
-
                 res.status(200);
                 res.type('text/html');
                 res.render('search', {
@@ -59,7 +57,6 @@ app.get('/search', (req,res) => {
 })
 
 app.get('/game/:gid',(req,res) => {
-    console.log(`game id is ${req.params.gid}`)
     const gameId = parseInt(req.params.gid);
     const limit = parseInt(req.query.limit) || 5;
     const offset = parseInt(req.query.offset) || 0;
@@ -79,8 +76,6 @@ app.get('/game/:gid',(req,res) => {
                     res.send(err);
                     return;
                 }
-                console.log(gameDetails[0])
-
                 conn.query(SQL_Count_Comments,
                     [gameId],
                     (err, totCount) => {
@@ -90,8 +85,6 @@ app.get('/game/:gid',(req,res) => {
                             res.send(err);
                             return;
                         }
-                        console.log(totCount[0].totalComm)
-                    
                     const totalCount = totCount[0].totalComm
                         
                     conn.query(SQL_Game_comments,
@@ -104,8 +97,6 @@ app.get('/game/:gid',(req,res) => {
                                 res.send(err);
                                 return;
                             }
-                            console.log(gameComm.length)
-
                             res.status(200);
                             res.type('text/html');
                             res.render('game', {
@@ -124,12 +115,7 @@ app.get('/game/:gid',(req,res) => {
     })
 })
 
-
-
-
 app.get(/.*/, express.static(__dirname + '/public'))
-
-
 
 //start the server
 app.listen(PORT, () => {
