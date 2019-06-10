@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="/style.css">
+        <title>{{name}}</title>
+    </head>
+    <body>
+        <div class="details">
+            <div class="content">
+                <img src="{{game.image}}" alt="">
+            </div>
+            <div class="content">
+                Name : {{game.name}}
+                <br>
+                Published : {{game.year}}
+                <br>
+                Ranking : {{game.ranking}}
+                <br>
+                Users Rated : {{game.users_rated}}
+                <br>
+                <a href="{{game.url}}">View on BoardGame</a>
+            </div>
+        </div>
+        <br>
+        <form action="/index.html">
+            <button type="submit" class="BButon">Back</button>
+        </form>
+
+        <h2>Comments</h2>
+        {{#if noComm}}
+            <h4>There are no comments for this game yet</h4>
+        {{else}}
+            {{#each gameComm}}
+                <div class="comment">
+                    User : {{this.user}}
+                    <br>
+                    Rating : {{this.rating}}
+                    <br>
+                    {{this.c_text}}
+                </div>
+            {{/each}}
+        {{/if}}
+
+        <div class="buttons">
+            <form action="">
+                <input type="hidden" name="offset" value="{{prev_offset}}">
+                <td><button type="submit" {{prev_disabled}}>Prev</button></td>
+            </form>
+            <form action="">
+                <input type="hidden" name="offset" value="{{next_offset}}">
+                <td><button type="submit" {{next_disabled}}>Next</button></td>
+            </form>
+        </div>
+
+    </body>
+</html>

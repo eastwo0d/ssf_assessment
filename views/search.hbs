@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/style.css">
+    <title>Searched Results for games</title>
+</head>
+<body>
+    <h1>Games with '{{name}}'</h1>
+    {{#if noResult}}
+        <h4>Your search for '{{name}} returns no results.</h4>
+    {{else}}
+    <table border="1">
+        <thead>
+            <th>Name</th>
+        </thead>
+        <tbody>
+            {{#each game}}
+                <tr>
+                    <td><a href="/game/{{this.gid}}">{{this.name}}</a></td>
+                </tr> 
+            {{/each}}   
+
+        </tbody>
+    </table>
+    {{/if}}
+    <form action="/index.html">
+    <button type="submit">Back</button>
+    </form>
+</body>
+</html>
